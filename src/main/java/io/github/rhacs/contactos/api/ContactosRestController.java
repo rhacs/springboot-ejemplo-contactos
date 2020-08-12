@@ -23,12 +23,21 @@ public class ContactosRestController {
     // Atributos
     // -----------------------------------------------------------------------------------------
 
+    /**
+     * Objeto {@link ContactosRepositorio} con los métodos de manipulación del
+     * repositorio de {@link Contacto}s
+     */
     @Autowired
     private ContactosRepositorio contactosRepositorio;
 
     // Solicitudes GET
     // -----------------------------------------------------------------------------------------
 
+    /**
+     * Muestra todos los registros almacenados en el repositorio
+     * 
+     * @return un objeto {@link ResponseEntity} con la respuesta a la solicitud
+     */
     @GetMapping
     public ResponseEntity<List<Contacto>> buscarTodos() {
         // Obtener todos los registros del repositorio
@@ -38,9 +47,16 @@ public class ContactosRestController {
         return ResponseEntity.status(HttpStatus.OK).body(contactos);
     }
 
+    /**
+     * Muestra la información del registro solicitado
+     * 
+     * @param id identificador numérico del {@link Contacto}
+     * @return un objeto {@link ResponseEntity} con la respuesta a la solicitud
+     */
     @GetMapping(path = "/{id:^[0-9]$}")
     public ResponseEntity<Contacto> buscarUno(@PathVariable Long id) {
-        // Buscar contacto en el repositorio, si no existe, lanzar excepción NoSuchElementException
+        // Buscar contacto en el repositorio, si no existe, lanzar excepción
+        // NoSuchElementException
         Contacto contacto = contactosRepositorio.findById(id).orElseThrow();
 
         // Crear y devolver respuesta
@@ -50,6 +66,12 @@ public class ContactosRestController {
     // Solicitudes POST
     // -----------------------------------------------------------------------------------------
 
+    /**
+     * Agrega un nuevo registro al repositorio
+     * 
+     * @param contacto objeto {@link Contacto} con la información a agregar
+     * @return un objeto {@link ResponseEntity} con la respuesta a la solicitud
+     */
     @PostMapping
     public ResponseEntity<Contacto> agregarRegistro(@RequestBody Contacto contacto) {
         // Guardar registro en el repositorio
