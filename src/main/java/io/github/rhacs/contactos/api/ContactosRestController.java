@@ -53,7 +53,7 @@ public class ContactosRestController {
      * @param id identificador numérico del {@link Contacto}
      * @return un objeto {@link ResponseEntity} con la respuesta a la solicitud
      */
-    @GetMapping(path = "/{id:^[0-9]$}")
+    @GetMapping(path = "/{id:^[0-9]+$}")
     public ResponseEntity<Contacto> buscarUno(@PathVariable Long id) {
         // Buscar contacto en el repositorio, si no existe, lanzar excepción
         // NoSuchElementException
