@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,6 +80,25 @@ public class ContactosRestController {
 
         // Crear y devolver respuesta
         return ResponseEntity.status(HttpStatus.CREATED).body(contacto);
+    }
+
+    // Solicitudes PUT
+    // -----------------------------------------------------------------------------------------
+
+    /**
+     * Edita la información de un registro
+     * 
+     * @param id       identificador numérico del {@link Contacto}
+     * @param contacto objeto {@link Contacto} con la información a editar
+     * @return un objeto {@link ResponseEntity} con la respuesta a la solicitud
+     */
+    @PutMapping(path = "/{id:^[0-9]+$}")
+    public ResponseEntity<Contacto> editarRegistro(@PathVariable Long id, @RequestBody Contacto contacto) {
+        // Guardar información del registro
+        contacto = contactosRepositorio.save(contacto);
+
+        // Crear y devolver respuesta
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(contacto);
     }
 
 }
