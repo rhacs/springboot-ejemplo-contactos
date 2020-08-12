@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -99,6 +100,27 @@ public class ContactosRestController {
 
         // Crear y devolver respuesta
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(contacto);
+    }
+
+    // Solicitudes DELETE
+    // -----------------------------------------------------------------------------------------
+
+    /**
+     * Elimina un registro del repositorio
+     * 
+     * @param id identificador numérico del {@link Contacto}
+     * @return un objeto {@link ResponseEntity} con la respuesta a la solicitud
+     */
+    @DeleteMapping(path = "/{id:^[0-9]+$}")
+    public ResponseEntity<Contacto> eliminarRegistro(@PathVariable Long id) {
+        // Buscar registro en el repositorio, lanzar NoSuchElementException si no existe
+        Contacto contacto = contactosRepositorio.findById(id).orElseThrow();
+
+        // Eliminar registro del repositorio
+        contactosRepositorio.delete(contacto);
+
+        // Crear y devolver respuesta
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(contacto);
     }
 
 }
