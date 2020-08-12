@@ -12,6 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "contactos")
+/*
+ * @SequenceGenerator define un generador de secuencias
+ * - allocationSize = cantidad de números a avanzar cuando se genera un nuevo valor
+ * - initialValue = valor inicial
+ * - name = nombre del generador, tiene que se único
+ */
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "contactos_seq")
 public class Contacto {
 
